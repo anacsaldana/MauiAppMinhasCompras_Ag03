@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MauiAppMinhasCompras.Views.ListaProduto"
+             Appearing="ListaProduto_Appearing">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem Text="Somar" Clicked="SomarButton_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout>
+        <Label Text="Minhas Compras" FontSize="24" HorizontalOptions="Center" />
+
+        <Grid Padding="10" RowSpacing="1" ColumnSpacing="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Título das colunas -->
+                <RowDefinition Height="*"/>
+                <!-- Dados dos produtos -->
+            </Grid.RowDefinitions>
+
+            <!-- Títulos das colunas -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- Produto -->
+                <ColumnDefinition Width="*"/>
+                <!-- Quantidade -->
+                <ColumnDefinition Width="*"/>
+                <!-- Preço -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Excluir -->
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Produto" FontAttributes="Bold" HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" />
+            <Label Text="Quantidade" FontAttributes="Bold" HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" />
+            <Label Text="Preço" FontAttributes="Bold" HorizontalOptions="Center" Grid.Row="0" Grid.Column="2" />
+            <Label Text="Ações" FontAttributes="Bold" HorizontalOptions="Center" Grid.Row="0" Grid.Column="3" />
+
+            <!-- Items da CollectionView -->
+            <CollectionView x:Name="listaProdutosView" SelectionMode="Single" SelectionChanged="OnItemSelected" Grid.Row="1" Grid.ColumnSpan="4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding Descricao}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
+                            <Label Text="{Binding Quantidade}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" />
+                            <Label Text="{Binding Preco, StringFormat='R$ {0:F2}'}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" />
+                            <Button Text="🗑" BackgroundColor="Red" TextColor="White" Clicked="DeleteButton_Clicked" CommandParameter="{Binding Id}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3" WidthRequest="30" HeightRequest="30"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
